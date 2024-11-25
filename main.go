@@ -26,7 +26,6 @@ func main() {
     ))
     myWindow.Resize(fyne.NewSize(400, 200))
 
-    // Handle file drag-and-drop
     myWindow.SetOnDropped(func(pos fyne.Position, uris []fyne.URI) {
         for _, uri := range uris {
             filePath := uri.Path()
