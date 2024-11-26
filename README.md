@@ -6,7 +6,7 @@ Build on macOS
 go mod tidy
 go install fyne.io/fyne/v2/cmd/fyne@latest
 export PATH=$PATH:$HOME/go/bin
-fyne package -os darwin -icon icon.png --tags="vcs=false"
+yne package -os darwin -icon icon.png -appID com.eliasalerno.videotogif
 ```
 
 Build on Windows
@@ -14,5 +14,10 @@ Build on Windows
 ```sh
 go mod tidy
 go install fyne.io/fyne/v2/cmd/fyne@latest
+```
+
+> you need to add the go bin to PATH before building
+
+```sh
 fyne package -os windows -icon icon.png
 ```

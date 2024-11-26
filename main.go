@@ -49,15 +49,17 @@ func main() {
 
 func isVideoFile(path string) bool {
     ext := strings.ToLower(filepath.Ext(path))
-    return ext == ".mp4" || ext == ".mkv" || ext == ".avi" // Add more formats if needed
+    return ext == ".mp4" || ext == ".mov" || ext == ".mkv" || ext == ".avi"
 }
 
 func convertToGif(inputPath string) string {
     outputPath := strings.TrimSuffix(inputPath, filepath.Ext(inputPath)) + ".gif"
-    cmd := exec.Command("ffmpeg", "-i", inputPath, "-vf", "scale=320:-1,fps=8", outputPath)
-    err := cmd.Run()
+    ffmpegPath := "/usr/local/bin/ffmpeg" // Update this path as needed
+    cmd := exec.Command(ffmpegPath, "-i", inputPath, "-vf", "scale=320:-1,fps=8", outputPath)
+    output, err := cmd.CombinedOutput()
     if err != nil {
-        fmt.Println("Error:", err)
+        fmt.Println("Error during ffmpeg execution:", err)
+        fmt.Println("ffmpeg output:", string(output))
         return ""
     }
     return outputPath
