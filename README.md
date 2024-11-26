@@ -1,5 +1,3 @@
-![icon](icon.png)
-
 # gifi
 
 ![demo](gifi-demo.gif)
