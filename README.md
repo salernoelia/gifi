@@ -1,9 +1,10 @@
 ![icon](icon.png)
 
-# Gifi
+# gifi
+
+![demo](gifi-demo.gif)
 
 App which allows you to directly convert a .mp4, .mov, .mkv or .avi to a gif and save it in same folder.
-
 
 ## macOS Setup
 
