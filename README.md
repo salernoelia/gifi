@@ -4,6 +4,24 @@
 
 App which allows you to directly convert a .mp4, .mov, .mkv or .avi to a gif and save it in same folder.
 
+## macOS Setup
+
+```sh
+brew intall ffmpeg
+```
+
+### Windows Setup
+
+1. Download FFmpeg from https://ffmpeg.org/download.html
+2. Extract the files
+3. Add the ffmpeg/bin folder to your System PATH
+   - Open System Properties > Advanced > Environment Variables
+   - Under System Variables, find PATH
+   - Add the full path to ffmpeg/bin folder
+4. Restart your system
+
+---
+
 ## Build for macOS
 
 ```sh
