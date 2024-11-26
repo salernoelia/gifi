@@ -6,6 +6,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"runtime"
 	"strconv"
 	"strings"
 
@@ -17,7 +18,7 @@ import (
 
 func main() {
     myApp := app.New()
-    myWindow := myApp.NewWindow("Video to GIF Converter")
+    myWindow := myApp.NewWindow("gifi")
 
     label := widget.NewLabel("Drag and drop a video file to convert it to a GIF.")
     outputLabel := widget.NewLabel("")
@@ -74,8 +75,33 @@ func isVideoFile(path string) bool {
 
 func convertToGif(inputPath, resolution, frameRate string) string {
     frameRate = strings.TrimSuffix(frameRate, " fps")
-    ffmpegPath := "/usr/local/bin/ffmpeg" // Update this path as needed
-    outputPath := strings.TrimSuffix(inputPath, filepath.Ext(inputPath)) + "-" + resolution + "xAUTO-" + frameRate + "fps" +  ".gif"
+    
+    // Determine ffmpeg path based on OS
+    var ffmpegPath string
+    if runtime.GOOS == "windows" {
+        // Check common Windows ffmpeg locations
+        possiblePaths := []string{
+            "ffmpeg.exe",                           // If in PATH
+            "C:\\ffmpeg\\bin\\ffmpeg.exe",         // Common install location
+            filepath.Join(os.Getenv("PROGRAMFILES"), "ffmpeg", "bin", "ffmpeg.exe"),
+        }
+        
+        for _, path := range possiblePaths {
+            if _, err := exec.LookPath(path); err == nil {
+                ffmpegPath = path
+                break
+            }
+        }
+        
+        if ffmpegPath == "" {
+            fmt.Println("FFmpeg not found. Please install FFmpeg and add it to PATH")
+            return ""
+        }
+    } else {
+        ffmpegPath = "/usr/local/bin/ffmpeg"
+    }
+
+    outputPath := strings.TrimSuffix(inputPath, filepath.Ext(inputPath)) + "-" + resolution + "xAUTO-" + frameRate + "fps" + ".gif"
     scaleOption := fmt.Sprintf("scale=%s:-1", resolution)
     fpsOption := fmt.Sprintf("fps=%s", frameRate)
 
