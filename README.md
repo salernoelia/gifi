@@ -28,6 +28,12 @@ brew intall ffmpeg
 brew install ffmpeg
 ```
 
+Link it
+
+```sh
+sudo ln -sf /opt/homebrew/bin/ffmpeg /usr/local/bin/ffmpeg
+```
+
 ```sh
 go mod tidy
 go install fyne.io/fyne/v2/cmd/fyne@latest
